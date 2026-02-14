@@ -17,11 +17,21 @@ The solution uses **Microsoft Entra ID Conditional Access** to route traffic to 
 
 ## 🛠️ Step 1: Entra ID Configuration
 
-### 1. Disable Security Defaults
-*Mutually exclusive with Conditional Access.*
-1. Go to **Entra ID** > **Overview** > **Properties**.
-2. Click **Manage security defaults**.
-3. Set to **Disabled**.
+**To ensure your organization stays protected during this switch, follow these steps:**
+
+1. **Deploy Templates First:** - Go to **Protection** > **Conditional Access** > **Policies**.
+   - Click **+ New policy from template**.
+   - Under the **Secure foundation** category, select:
+     - `Require MFA for all users`
+     - `Block legacy authentication`
+   - Set these to **Report-only** for now.
+2. **Disable Security Defaults:**
+   - Go to **Entra ID** > **Overview** > **Properties** > **Manage security defaults**.
+   - Set to **Disabled**.
+3. **Activate Your New MFA:**
+   - Immediately return to your Conditional Access policies and switch the templates you just created from **Report-only** to **On**.
+   - *Tip: This replaces the "Defaults" with custom versions that you can now manage and audit.*
+
 
 ### 2. Create Conditional Access Policy
 1. Go to **Protection** > **Conditional Access** > **Policies**.
