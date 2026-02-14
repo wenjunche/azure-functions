@@ -28,3 +28,20 @@ Select Expose an API and accept the default
 Get-MgServicePrincipal -Filter "appId eq '99045fe1-7639-4a75-9d4a-577b6ca3810f'"
 
 New-MgServicePrincipal -AppId "99045fe1-7639-4a75-9d4a-577b6ca3810f"
+
+# Client Certificate
+
+# Create a Self-Signed Root CA (The "Boss" certificate)
+~~~
+$rootCert = New-SelfSignedCertificate -Type Custom -Subject "CN=MyTestRootCA" -KeyUsage CertSign, CRLSign, DigitalSignature -KeyUsageProperty Sign -KeyExportPolicy Exportable -KeyAlgorithm RSA -KeyLength 2048 -CertStoreLocation "Cert:\CurrentUser\My"  -TextExtension @("2.5.29.19={critical}{text}ca=1&pathlength=1")
+~~~
+
+# Create the Client Certificate
+~~~
+New-SelfSignedCertificate -Type Custom -Subject "CN=wenjun@here.io" -Signer $rootCert -KeyUsage DigitalSignature -KeyExportPolicy Exportable -KeyAlgorithm RSA -KeyLength 2048 -CertStoreLocation "Cert:\CurrentUser\My" ` -TextExtension @("2.5.29.37={text}1.3.6.1.5.5.7.3.2")
+~~~
+
+# Export the Root CA
+~~~
+Export-Certificate -Cert $rootCert -FilePath "$home\Desktop\MyTestRootCA.cer"
+~~~
