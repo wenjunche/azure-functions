@@ -58,4 +58,4 @@ When a user visits the app under this policy:
 
 * **Suffix Check:** If the URL does **not** contain `.mcas.ms`, the session is not hitting the proxy. Re-check your Conditional Access "Client App" and "Session" settings.
 * **Policy Conflict:** Ensure no other "Allow" policy is overriding this session control. Defender policies follow a "most restrictive" logic, but Entra policies are additive.
-* **App Onboarding:** For non-Microsoft apps (like a custom Electron app), you may need to manually "onboard" the app in Defender under **Settings > Cloud Apps > Connected Apps**.
+* **App Onboarding:** For non-Microsoft apps, you may need to manually "onboard" the app in Defender under **Settings > Cloud Apps > Connected Apps**.
